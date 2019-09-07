@@ -3,7 +3,6 @@ package io.github.cjybyjk.dpmapkinstaller;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.admin.DevicePolicyManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -21,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tvLog;
     Button btnInstall;
     Button btnSelect;
+    Button btnRemoveDPM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         tvLog = findViewById(R.id.tvLog);
         btnInstall = findViewById(R.id.btnInstall);
         btnSelect = findViewById(R.id.btnSelect);
+        btnRemoveDPM = findViewById(R.id.btnRemoveDPM);
 
         btnSelect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,8 +48,19 @@ public class MainActivity extends AppCompatActivity {
                 startInstall();
             }
         });
+        btnRemoveDPM.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    DevicePolicyManager mDevicePolicyManager = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+                    mDevicePolicyManager.clearDeviceOwnerApp(getApplicationContext().getPackageName());
+                    tvLog.append("已移除DPM权限，需要继续使用请重新激活 \n");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-        DPMSetting();
+            }
+        });
 
         Intent intent = getIntent();
         String action = intent.getAction();
@@ -94,17 +106,4 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
-    void DPMSetting() {
-        DevicePolicyManager mDevicePolicyManager = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
-        ComponentName mComponentName = new ComponentName(this, DPMReceiver.class);
-        // 判断该组件是否已经是DeviceAdmin
-        if (!mDevicePolicyManager.isAdminActive(mComponentName)) {
-            Intent intent = new Intent(
-                    DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
-            intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN,
-                    mComponentName);
-            intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "DPM APK installer need this permission");
-            startActivityForResult(intent, 1);
-        }
-    }
 }

@@ -9,11 +9,13 @@
     <TextView
         android:id="@+id/txtAPK"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:text="选择一个APK以安装"
+        app:layout_constraintBottom_toTopOf="@+id/tvLog"
         app:layout_constraintEnd_toStartOf="@+id/btnSelect"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,12 +25,12 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAPK" />
+        app:layout_constraintTop_toBottomOf="@+id/btnRemoveDPM" />
 
     <Button
         android:id="@+id/btnInstall"
@@ -49,4 +51,15 @@
         android:text="选择"
         app:layout_constraintEnd_toStartOf="@+id/btnInstall"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnRemoveDPM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="移除DPM"
+        android:textColor="@android:color/holo_red_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnInstall" />
 </androidx.constraintlayout.widget.ConstraintLayout>

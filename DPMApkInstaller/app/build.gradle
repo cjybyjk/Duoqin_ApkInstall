@@ -5,14 +5,18 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "io.github.cjybyjk.dpmapkinstaller"
-        minSdkVersion 27
-        targetSdkVersion 29
+        minSdkVersion 25
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
+            lintOptions {
+                checkReleaseBuilds false
+                abortOnError false
+            }
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
